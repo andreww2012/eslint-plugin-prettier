@@ -24,6 +24,7 @@
  *   source: string,
  *   options: Options,
  *   fileInfoOptions: FileInfoOptions,
+ *   fullControl: boolean,
  * ) => string} PrettierFormat
  */
 
@@ -128,6 +129,7 @@ const eslintPluginPrettier = {
                 properties: {},
                 additionalProperties: true,
               },
+              fullControl: { type: 'boolean' },
             },
             additionalProperties: true,
           },
@@ -143,6 +145,7 @@ const eslintPluginPrettier = {
         const usePrettierrc = !options || options.usePrettierrc !== false;
         /** @type {FileInfoOptions} */
         const fileInfoOptions = options?.fileInfoOptions || {};
+        const fullControl = options?.fullControl || false;
 
         // `context.getSourceCode()` was deprecated in ESLint v8.40.0 and replaced
         // with the `sourceCode` property.
@@ -210,6 +213,7 @@ const eslintPluginPrettier = {
                   usePrettierrc,
                 },
                 fileInfoOptions,
+                fullControl,
               );
             } catch (err) {
               if (!(err instanceof SyntaxError)) {
